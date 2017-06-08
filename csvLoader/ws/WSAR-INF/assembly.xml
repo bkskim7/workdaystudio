@@ -51,7 +51,6 @@
         </cc:local-out>
         <cc:async-mediation id="transformCSV0" routes-to="splitXML">
             <cc:steps>
-                <cc:eval id="Eval"/>
                 <cc:csv-to-xml id="csvToXml" output="variable" output-mimetype="text/xml" output-variable="xml.stream" input="variable" input-variable="wd.retrieve.variable" colNames="Employee_ID,Deduction Code, Amount, Currency, Date" format="rfc4180" namespacePrefix="wd" namespaceURI="urn:com.workday/bsvc" rootName="benefitDeductions" rowName="employee_Entry" useFirstLineAsHeader="'true'"/>
             </cc:steps>
             <cc:send-error id="errorHandle1" routes-to="transformErrorMSG-b"/>
