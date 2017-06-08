@@ -83,7 +83,7 @@
     <target href="assembly.xml#splitXML"/>
   </connections>
   <connections type="routesTo" sourceAnchorX="0.88" sourceAnchorY="1.0" targetAnchorX="0.1780821917808219" targetAnchorY="0.056">
-    <source href="assembly.xml#//@beans/@mixed.1/@mixed.25/@subRoute.0"/>
+    <source href="assembly.xml#//@beans/@mixed.1/@splitter.0/@subRoute.0"/>
     <target href="assembly.xml#writeWS0"/>
   </connections>
 </wdnm:Diagram>
