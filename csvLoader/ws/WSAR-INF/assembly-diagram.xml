@@ -41,7 +41,7 @@
     <element href="assembly.xml#splitXML"/>
   </visualProperties>
   <decorations x="-7" y="32" width="968" height="277" text="Large CSV File to Large Web Service (many records in single call)"/>
-  <decorations x="-7" y="337" width="968" height="277" text="Large CSV File to Smaller Web Service (single record per call)"/>
+  <decorations x="5" y="494" width="968" height="277" text="Large CSV File to Smaller Web Service (single record per call)"/>
   <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.8648648648648649" targetAnchorX="0.2605042016806723" targetAnchorY="0.24468085106382978">
     <source href="assembly.xml#initiateAssembly-a"/>
     <target href="assembly.xml#transformCSV"/>
