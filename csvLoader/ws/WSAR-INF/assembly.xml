@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+     xmlns="http://www.springframework.org/schema/beans"
+     xmlns:beans="http://www.springframework.org/schema/beans"
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:cc="http://www.capeclear.com/assembly/10"
+     xmlns:cloud="urn:com.workday/esb/cloud/10.0"
+     xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+     xmlns:pi="urn:com.workday/picof"
+     xmlns:wd="urn:com.workday/bsvc"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+ 
+	<cc:assembly id="WorkdayAssembly" version="2016.34">
+        <cc:workday-in id="initiateAssembly-a" routes-to="transformCSV">
+            <cc:integration-system name="csvLoader"/>
+        </cc:workday-in>
+        <cc:async-mediation id="transformCSV" routes-to="writeWS">
+            <cc:steps>
+                <cc:csv-to-xml id="csvToXml" output="variable" output-mimetype="text/xml" output-variable="xml.stream" input="variable" input-variable="wd.retrieve.variable" colNames="Employee_ID,Deduction Code, Amount, Currency, Date" format="rfc4180" namespacePrefix="wd" namespaceURI="urn:com.workday/bsvc" rootName="benefitDeductions" rowName="employee_Entry" useFirstLineAsHeader="'true'"/>
+            </cc:steps>
+            <cc:send-error id="errorHandle1" routes-to="transformErrorMSG-a"/>
+        </cc:async-mediation>
+        <cc:local-out id="transformErrorMSG-a" endpoint="vm://wcc/PutIntegrationMessage"><cc:set name="is.message.severity" value="'CRITICAL'"/><cc:set name="is.message.summary" value="'Error thrown while attempting to convert .csv file to XML.  System message: ' + context.errorMessage"/></cc:local-out>
+        <cc:workday-out-soap id="webServiceCall" application="Human_Resources" version="v28.0"/>
+        <cc:async-mediation id="writeWS" routes-to="webServiceCall" handle-downstream-errors="true">
+            <cc:steps>
+                <cc:write id="writeWebService">
+                    <cc:message>
+                        <cc:text>Web service goes here</cc:text>
+                    </cc:message>
+                </cc:write>
+                <cc:xslt id="xslWebService" url="webService.xsl"/>
+            </cc:steps>
+            <cc:send-error id="errorHandle2" routes-to="webServiceErrorMSG-a"/>
+        </cc:async-mediation>
+        <cc:workday-out-soap id="webServiceCall0" application="Human_Resources" version="v28.0"/>
+        <cc:async-mediation id="writeWS0" routes-to="webServiceCall0" handle-downstream-errors="true">
+            <cc:steps>
+                <cc:write id="writeWebService">
+                    <cc:message>
+                        <cc:text>Web service goes here</cc:text>
+                    </cc:message>
+                </cc:write>
+                <cc:xslt id="xslWebService" url="webService.xsl"/>
+            </cc:steps>
+            <cc:send-error id="errorHandle2" routes-to="webServiceErrorMSG-b"/>
+        </cc:async-mediation>
+        <cc:local-out id="transformErrorMSG-b" endpoint="vm://wcc/PutIntegrationMessage">
+            <cc:set name="is.message.severity" value="'CRITICAL'"/>
+            <cc:set name="is.message.summary" value="'Error thrown while attempting to convert .csv file to XML.  System message: ' + context.errorMessage"/>
+        </cc:local-out>
+        <cc:async-mediation id="transformCSV0" routes-to="splitXML">
+            <cc:steps>
+                <cc:csv-to-xml id="csvToXml" output="variable" output-mimetype="text/xml" output-variable="xml.stream" input="variable" input-variable="wd.retrieve.variable" colNames="Employee_ID,Deduction Code, Amount, Currency, Date" format="rfc4180" namespacePrefix="wd" namespaceURI="urn:com.workday/bsvc" rootName="benefitDeductions" rowName="employee_Entry" useFirstLineAsHeader="'true'"/>
+            </cc:steps>
+            <cc:send-error id="errorHandle1" routes-to="transformErrorMSG-b"/>
+        </cc:async-mediation>
+        <cc:workday-in id="initiateAssembly-b" routes-to="transformCSV0">
+            <cc:integration-system name="csvLoader0"/>
+        </cc:workday-in>
+        <cc:local-out id="webServiceErrorMSG-a" endpoint="vm://wcc/PutIntegrationMessage"><cc:set name="is.message.severity" value="'ERROR'"/><cc:set name="is.message.summary" value="'System encountered problem while submitting web service. System message: ' + context.errorMessage"/></cc:local-out>
+        <cc:local-out id="webServiceErrorMSG-b" endpoint="vm://wcc/PutIntegrationMessage">
+            <cc:set name="is.message.severity" value="'ERROR'"/>
+            <cc:set name="is.message.summary" value="'System encountered problem while submitting web service. System message: ' + context.errorMessage"/>
+        </cc:local-out>
+        <cc:splitter id="splitXML">
+            <cc:sub-route name="route" routes-to="writeWS0"/>
+            <cc:xpath-splitter xpath="wd:Entry/wd:Employee"/>
+        </cc:splitter>
+	</cc:assembly>
+
+</beans>

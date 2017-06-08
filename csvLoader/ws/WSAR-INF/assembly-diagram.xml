@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wdnm:Diagram xmlns:wdnm="http://workday.com/studio/editors/notation">
+  <element href="assembly.xml#WorkdayAssembly"/>
+  <visualProperties x="30" y="74">
+    <element href="assembly.xml#initiateAssembly-a"/>
+  </visualProperties>
+  <visualProperties x="222" y="74">
+    <element href="assembly.xml#transformCSV"/>
+  </visualProperties>
+  <visualProperties x="222" y="254">
+    <element href="assembly.xml#transformErrorMSG-a"/>
+  </visualProperties>
+  <visualProperties x="707" y="74">
+    <element href="assembly.xml#webServiceCall"/>
+  </visualProperties>
+  <visualProperties x="442" y="67">
+    <element href="assembly.xml#writeWS"/>
+  </visualProperties>
+  <visualProperties x="30" y="379">
+    <element href="assembly.xml#initiateAssembly-b"/>
+  </visualProperties>
+  <visualProperties x="222" y="379">
+    <element href="assembly.xml#transformCSV0"/>
+  </visualProperties>
+  <visualProperties x="222" y="559">
+    <element href="assembly.xml#transformErrorMSG-b"/>
+  </visualProperties>
+  <visualProperties x="538" y="379">
+    <element href="assembly.xml#writeWS0"/>
+  </visualProperties>
+  <visualProperties x="812" y="394">
+    <element href="assembly.xml#webServiceCall0"/>
+  </visualProperties>
+  <visualProperties x="488" y="238">
+    <element href="assembly.xml#webServiceErrorMSG-a"/>
+  </visualProperties>
+  <visualProperties x="524" y="568">
+    <element href="assembly.xml#webServiceErrorMSG-b"/>
+  </visualProperties>
+  <visualProperties x="406" y="379">
+    <element href="assembly.xml#splitXML"/>
+  </visualProperties>
+  <decorations x="-7" y="32" width="968" height="277" text="Large CSV File to Large Web Service (many records in single call)"/>
+  <decorations x="-7" y="337" width="968" height="277" text="Large CSV File to Smaller Web Service (single record per call)"/>
+  <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.8648648648648649" targetAnchorX="0.2605042016806723" targetAnchorY="0.24468085106382978">
+    <source href="assembly.xml#initiateAssembly-a"/>
+    <target href="assembly.xml#transformCSV"/>
+  </connections>
+  <connections type="routesTo" sourceAnchorX="0.782608695652174" sourceAnchorY="1.0" targetAnchorX="0.41304347826086957" targetAnchorY="0.6756756756756757">
+    <source href="assembly.xml#//@beans/@mixed.1/@mixed.3/@mixed.3"/>
+    <target href="assembly.xml#transformErrorMSG-a"/>
+  </connections>
+  <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.232" targetAnchorX="0.023622047244094488" targetAnchorY="0.22340425531914893">
+    <source href="assembly.xml#transformCSV"/>
+    <target href="assembly.xml#writeWS"/>
+  </connections>
+  <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.3829787234042553" targetAnchorX="0.3732394366197183" targetAnchorY="0.6756756756756757">
+    <source href="assembly.xml#writeWS"/>
+    <target href="assembly.xml#webServiceCall"/>
+  </connections>
+  <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.8648648648648649" targetAnchorX="0.2605042016806723" targetAnchorY="0.24468085106382978">
+    <source href="assembly.xml#initiateAssembly-b"/>
+    <target href="assembly.xml#transformCSV0"/>
+  </connections>
+  <connections type="routesTo" sourceAnchorX="0.782608695652174" sourceAnchorY="1.0" targetAnchorX="0.41304347826086957" targetAnchorY="0.6756756756756757">
+    <source href="assembly.xml#//@beans/@mixed.1/@mixed.17/@mixed.3"/>
+    <target href="assembly.xml#transformErrorMSG-b"/>
+  </connections>
+  <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.3829787234042553" targetAnchorX="0.3732394366197183" targetAnchorY="0.6756756756756757">
+    <source href="assembly.xml#writeWS0"/>
+    <target href="assembly.xml#webServiceCall0"/>
+  </connections>
+  <connections type="routesTo" sourceAnchorX="0.6415094339622641" sourceAnchorY="1.0" targetAnchorX="0.6878612716763006" targetAnchorY="0.16216216216216217">
+    <source href="assembly.xml#//@beans/@mixed.1/@mixed.9/@mixed.3"/>
+    <target href="assembly.xml#webServiceErrorMSG-a"/>
+  </connections>
+  <connections type="routesTo" sourceAnchorX="0.8066037735849056" sourceAnchorY="1.0" targetAnchorX="0.7934782608695652" targetAnchorY="0.21621621621621623">
+    <source href="assembly.xml#//@beans/@mixed.1/@mixed.13/@mixed.3"/>
+    <target href="assembly.xml#webServiceErrorMSG-b"/>
+  </connections>
+  <connections type="routesTo" sourceAnchorX="0.0" sourceAnchorY="0.136" targetAnchorX="0.2897196261682243" targetAnchorY="0.18333333333333332">
+    <source href="assembly.xml#transformCSV0"/>
+    <target href="assembly.xml#splitXML"/>
+  </connections>
+  <connections type="routesTo" sourceAnchorX="0.88" sourceAnchorY="1.0" targetAnchorX="0.1780821917808219" targetAnchorY="0.056">
+    <source href="assembly.xml#//@beans/@mixed.1/@mixed.25/@subRoute.0"/>
+    <target href="assembly.xml#writeWS0"/>
+  </connections>
+</wdnm:Diagram>
